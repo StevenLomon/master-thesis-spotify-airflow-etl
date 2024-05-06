@@ -63,6 +63,7 @@ print(len(d['items']))
 
 refined_tracks = []
 
+# ADD ARTIST!
 for playlist in refined_playlists:
     playlist_id = playlist['id']
     r1 = requests.get(BASE_URL + 'playlists/' + playlist_id + '/tracks', 
