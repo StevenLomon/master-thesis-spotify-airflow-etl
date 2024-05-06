@@ -3,6 +3,8 @@ import pandas as pd
 from dotenv import dotenv_values
 from rich import print, print_json
 
+# https://colab.research.google.com/drive/1VNzOMly5cGOHLtu8g8HUzPFyuyhaikQ5#scrollTo=B_XtLnVJtcu0
+
 config = dotenv_values(".env")
 CLIENT_ID = config['CLIENT_ID']
 CLIENT_SECRET = config['CLIENT_SECRET']
