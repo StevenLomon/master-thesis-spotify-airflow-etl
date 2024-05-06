@@ -38,7 +38,7 @@ r = requests.get(BASE_URL + 'browse/featured-playlists',
                  params={'locale': 'sv_SE', 'limit': 5})
 d = r.json()
 
-print(d)
+# print(d)
 
 refined_playlists = []
 for playlist in d['playlists']['items']:
@@ -46,5 +46,24 @@ for playlist in d['playlists']['items']:
                               'description': playlist['description'], 'tracks': playlist['tracks']['total']})
 
 print(refined_playlists)
-# for playlist in d['playlists']:
-#     print(f"{playlist['href']}")
+
+# get the songs from the playlists
+playlist_id = refined_playlists[1]['id']
+print(playlist_id)
+
+r = requests.get(BASE_URL + 'playlists/' + playlist_id + '/tracks', 
+                 headers=headers, 
+                 params={'market': 'SE'})
+d = r.json()
+
+print(len(d['items']))
+# print(d['items'])
+
+refined_tracks = []
+for track in d['items']:
+    track_info = track.get('track', None)
+    if track_info:
+        refined_tracks.append({'id': track_info['id'], 'name': track_info['name'], 
+                              'popularity': track_info['popularity']})
+
+print(refined_tracks)
