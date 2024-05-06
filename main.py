@@ -66,4 +66,12 @@ for track in d['items']:
         refined_tracks.append({'id': track_info['id'], 'name': track_info['name'], 
                               'popularity': track_info['popularity']})
 
+# print(refined_tracks)
+
+# enrich every track with danceability and energy that we can get from the audio-features endpoint
+for track in refined_tracks:
+    r = requests.get(BASE_URL + 'audio-features/' + track['id'], headers=headers)
+    track['danceability'] = r.json().get('danceability')
+    track['energy level'] = r.json().get('energy')
+
 print(refined_tracks)
