@@ -60,18 +60,19 @@ print(len(d['items']))
 # print(d['items'])
 
 refined_tracks = []
-for track in d['items']:
-    track_info = track.get('track', None)
-    if track_info:
-        refined_tracks.append({'id': track_info['id'], 'name': track_info['name'], 
-                              'popularity': track_info['popularity']})
 
-# print(refined_tracks)
+for playlist in refined_playlists:
+    playlist_id = playlist['id']
+    r1 = requests.get(BASE_URL + 'playlists/' + playlist_id + '/tracks', 
+                 headers=headers, 
+                 params={'market': 'SE'})
+    d = r1.json()
+    for track in d['items']:
+        track_info = track.get('track', None)
+        if track_info:
+            r2 = requests.get(BASE_URL + 'audio-features/' + track_info['id'], headers=headers)
+            refined_tracks.append({'id': track_info['id'], 'name': track_info['name'], 'playlist source': playlist_id,
+                                   'playlist source name': playlist['name'], 'popularity': track_info['popularity'],
+                                   'danceability': r2.json().get('danceability'), 'energy level': r2.json().get('energy')})
 
-# enrich every track with danceability and energy that we can get from the audio-features endpoint
-for track in refined_tracks:
-    r = requests.get(BASE_URL + 'audio-features/' + track['id'], headers=headers)
-    track['danceability'] = r.json().get('danceability')
-    track['energy level'] = r.json().get('energy')
-
-print(refined_tracks)
+df = pd.json_normalize(refined_tracks)
