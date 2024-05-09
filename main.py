@@ -1,4 +1,4 @@
-import requests
+import requests, psycopg2
 import pandas as pd
 from dotenv import dotenv_values
 from rich import print, print_json
@@ -8,6 +8,7 @@ from rich import print, print_json
 config = dotenv_values(".env")
 CLIENT_ID = config['CLIENT_ID']
 CLIENT_SECRET = config['CLIENT_SECRET']
+POSTGRE_PW = config['POSTGRE_PW']
 
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 redirect_uri = 'http://localhost:8888/callback'
@@ -79,3 +80,13 @@ for playlist in refined_playlists:
                                    'danceability': r2.json().get('danceability'), 'energy level': r2.json().get('energy')})
 
 df = pd.json_normalize(refined_tracks)
+
+# Connect to database
+conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres",
+                        password=POSTGRE_PW, port=5432)
+cur = conn.cursor()
+
+conn.commit()
+
+cur.close()
+conn.close()
