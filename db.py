@@ -8,11 +8,6 @@ POSTGRE_PW = config['POSTGRE_PW']
 
 df = pd.read_parquet("spotify_final.parquet")
 
-# Function to convert a list to a PostgreSQL array string
-def format_array(array):
-    # Ensure that each item is enclosed in double quotes, and special characters are properly escaped
-    return '{' + ','.join(f'"{item.replace("\\", "\\\\").replace("\"", "\\\"")}"' for item in array) + '}'
-
 # Connect to database
 conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres",
                         password=POSTGRE_PW, port=5432)
@@ -63,6 +58,7 @@ track_data_to_insert = [
     (
         row['id'],
         row['artist id'],
+        row['name'],
         int(row['popularity']),
         float(row['danceability']),
         float(row['energy level']),
@@ -73,9 +69,9 @@ track_data_to_insert = [
 ]
 
 extras.execute_batch(cur, """
-                     INSERT INTO track (trackID, artistID, popularity, danceability,
+                     INSERT INTO track (trackID, artistID, name, popularity, danceability,
                      energyLevel, playlistSources, playlistOccurrences) VALUES
-                     (%s, %s, %s, %s, %s, %s, %s)
+                     (%s, %s, %s, %s, %s, %s, %s, %s)
                      """, track_data_to_insert)
 conn.commit()  # Commit after inserting into track
 
