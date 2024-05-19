@@ -9,8 +9,17 @@ POSTGRE_PW = config['POSTGRE_PW']
 df = pd.read_parquet("spotify_final.parquet")
 
 # Connect to database
-conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres",
-                        password=POSTGRE_PW, port=5432)
+try:
+    conn = psycopg2.connect(
+        host="192.168.1.225",
+        dbname="postgres",
+        user="postgres",
+        password=POSTGRE_PW,
+        port=5432
+    )
+    print("Connection successful")
+except Exception as e:
+    print(f"Error: {e}")
 cur = conn.cursor()
 
 # First, ensure the artist table is defined:
