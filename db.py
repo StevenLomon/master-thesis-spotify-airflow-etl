@@ -22,11 +22,36 @@ except Exception as e:
     print(f"Error: {e}")
 cur = conn.cursor()
 
-# First, ensure the artist table is defined:
+# First, ensure all the dimension tables are defined:
 cur.execute("""
 CREATE TABLE IF NOT EXISTS artist (
     artistID VARCHAR(22) PRIMARY KEY,
-    name VARCHAR(255)
+    name VARCHAR(255),
+    popularity INT
+)
+""")
+
+cur.execute("""
+CREATE TABLE IF NOT EXISTS album (
+    albumID VARCHAR(22) PRIMARY KEY,
+    name VARCHAR(255),
+    releaseDate TIMESTAMP,
+    popularity INT
+)
+""")
+
+cur.execute("""
+CREATE TABLE IF NOT EXISTS trackFeatures (
+    trackID VARCHAR(22) PRIMARY KEY,
+    danceability FLOAT,
+    energyLevel FLOAT,
+    instrumentalness FLOAT, 
+    liveness FLOAT, 
+    loudness FLOAT, 
+    speechiness FLOAT, 
+    tempo FLOAT, 
+    duration_ms FLOAT, 
+    time_signature FLOAT
 )
 """)
 
@@ -35,43 +60,55 @@ cur.execute("""
 CREATE TABLE IF NOT EXISTS track (
     trackID VARCHAR(22) PRIMARY KEY,
     artistID VARCHAR(22),
+    albumID VARCHAR(22),
     name VARCHAR(255),
     popularity INT,
-    danceability FLOAT,
-    energyLevel FLOAT,
+    genres TEXT[],
     playlistSources TEXT[],
-    playlistOccurrences INT,
-    FOREIGN KEY (artistID) REFERENCES artist(artistID) -- Adding foreign key relationship; maintaining referential integrity within the database
+    playlistOccurences INT,
+    FOREIGN KEY (artistID) REFERENCES artist(artistID), # Adding foreign key relationship; maintaining referential integrity within the database
+    FOREIGN KEY (albumID) REFERENCES album(albumID),
+    FOREIGN KEY (trackID) REFERENCES trackFeatures(trackID)
 )
 """)
 
-# for index, row in df.iterrows():
-#     cur.execuse("""
-#                 INSERT INTO track (trackID, artistID, popularity, danceability, 
-#                 energyLevel, playylistSources, playlistOccurances) VALUES
-#                 (row['id'], row['artist id'], row['popularity'], row['danceability'],
-#                 row['energy level'], row['playlist sources'], row['playlist occurances'])
-#                 """)
-
-# Insert data into the artist table first
-artist_data_to_insert = df[['artist id', 'artist']].drop_duplicates().values.tolist()
+# Insert data into the dimension tables first
+artist_data_to_insert = df[['artist id', 'artist', 'artist popularity']].drop_duplicates().values.tolist()
 extras.execute_batch(cur, """
-                     INSERT INTO artist (artistID, name) VALUES
-                     (%s, %s)
+                     INSERT INTO artist (artistID, name, popularity) VALUES
+                     (%s, %s, %s)
                      ON CONFLICT (artistID) DO NOTHING
                      """, artist_data_to_insert)
-conn.commit()  # Commit after inserting into artist
+
+album_data_to_insert = df[['album id', 'album', 'album release date', 'album popularity']].drop_duplicates().values.tolist()
+extras.execute_batch(cur, """
+                     INSERT INTO album (albumID, name, releaseDate, popularity) VALUES
+                     (%s, %s, %s, %s)
+                     ON CONFLICT (albumID) DO NOTHING
+                     """, album_data_to_insert)
+
+track_features_data_to_insert = df[['id', 'danceability', 'energy level', 'instrumentalness',
+                                    'liveness', 'loudness', 'speechiness', 'tempo',
+                                    'tempo_ms', 'time signature']].drop_duplicates().values.tolist()
+extras.execute_batch(cur, """
+                     INSERT INTO trackFeatures (trackID, danceability, energyLevel, instrumentalness,
+                                                liveness, loudness, speechiness, tempo, 
+                                                tempo_ms, timeSignature) VALUES
+                     (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                     ON CONFLICT (trackID) DO NOTHING
+                     """, track_features_data_to_insert)
+conn.commit()  # Commit after inserting into dimension tables
 
 # Prepare and insert data into the track table
 track_data_to_insert = [
     (
         row['id'],
         row['artist id'],
+        row['album id'],
         row['name'],
         int(row['popularity']),
-        float(row['danceability']),
-        float(row['energy level']),
-        row['playlist sources'],
+        row['genres'],  
+        row['playlist sources'],  
         int(row['playlist occurrences'])
     )
     for index, row in df.iterrows()
