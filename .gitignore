@@ -1,2 +1,5 @@
 env/
 .env
+airflow_ec2_key.pem
+airflow_ec2_key.pem:Zone.Identifier
+desktop.ini
