@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS trackFeatures (
     speechiness FLOAT, 
     tempo FLOAT, 
     duration_ms FLOAT, 
-    time_signature FLOAT
+    timeSignature FLOAT
 )
 """)
 
@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS track (
     popularity INT,
     genres TEXT[],
     playlistSources TEXT[],
-    playlistOccurences INT,
-    FOREIGN KEY (artistID) REFERENCES artist(artistID), # Adding foreign key relationship; maintaining referential integrity within the database
+    playlistOccurrences INT,
+    FOREIGN KEY (artistID) REFERENCES artist(artistID), -- Adding foreign key relationship; maintaining referential integrity within the database
     FOREIGN KEY (albumID) REFERENCES album(albumID),
     FOREIGN KEY (trackID) REFERENCES trackFeatures(trackID)
 )
@@ -89,11 +89,11 @@ extras.execute_batch(cur, """
 
 track_features_data_to_insert = df[['id', 'danceability', 'energy level', 'instrumentalness',
                                     'liveness', 'loudness', 'speechiness', 'tempo',
-                                    'tempo_ms', 'time signature']].drop_duplicates().values.tolist()
+                                    'duration_ms', 'time signature']].drop_duplicates().values.tolist()
 extras.execute_batch(cur, """
                      INSERT INTO trackFeatures (trackID, danceability, energyLevel, instrumentalness,
                                                 liveness, loudness, speechiness, tempo, 
-                                                tempo_ms, timeSignature) VALUES
+                                                duration_ms, timeSignature) VALUES
                      (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                      ON CONFLICT (trackID) DO NOTHING
                      """, track_features_data_to_insert)
@@ -115,9 +115,10 @@ track_data_to_insert = [
 ]
 
 extras.execute_batch(cur, """
-                     INSERT INTO track (trackID, artistID, name, popularity, danceability,
-                     energyLevel, playlistSources, playlistOccurrences) VALUES
+                     INSERT INTO track (trackID, artistID, albumID, name, popularity, genres,
+                                        playlistSources, playlistOccurrences) VALUES
                      (%s, %s, %s, %s, %s, %s, %s, %s)
+                     ON CONFLICT (trackID) DO NOTHING
                      """, track_data_to_insert)
 conn.commit()  # Commit after inserting into track
 
