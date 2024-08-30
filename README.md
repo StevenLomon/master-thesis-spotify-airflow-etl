@@ -34,6 +34,8 @@ All data modeling was done in Lucidchart. Both the standard one and the dimensio
 The very first iteration of the data modeling for the Spotify data. The two tables to the left ended up not being used at all.  
 
 The iteration led to the creation of two distinct datasets; one more complex and a simpler one. How the data modeling for the complex dataset was translated in PostgreSQL below:
+!["The final ERD for the database in PostgreSQL"](/master-thesis-images/ERD.png "Final PostgreSQL ERD")
+The final ERD for the database in PostgreSQL.  
 
 
 ### Loading the data into Snowflake
