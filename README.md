@@ -58,8 +58,8 @@ A problem here however is that when a DataFrame is saved as csv, all data is con
 
 The other big problem that arised during the project is that Parquet files turned out to not be compatible with Airflow. This became the second reason that a simpler dataset had to be built to be used with Airflow. Since a lot of time and energy had been spent on the more complex dataset, it wasn't thrown away and instead of got to lie stored in PostgreSQL completely separate from Airflow.  
 
-!["Advanced data transformations with pandas to aggregate data in the complex dataset. df_aggregated was later saved as a Parquet file"](/master-thesis-images/complex-data-transformation.png "Complex data transformation")
-  Advanced data transformations with pandas to aggregate data in the complex dataset. df_aggregated was later saved as a Parquet file.  
+!["Advanced data transformations with pandas to aggregate data in the complex dataset. df_aggregated was later saved as a Parquet file"](/master-thesis-images/complex-data-transformation.png "Complex data transformation")  
+Advanced data transformations with pandas to aggregate data in the complex dataset. df_aggregated was later saved as a Parquet file.  
 
 !["Function in spotify_etl.py that is used in spotify_dag.py to transform the simpler dataset"](/master-thesis-images/simple-data-transformation.png "Simple data transformation")
 Function in spotify_etl.py that is used in spotify_dag.py to transform the simpler dataset.  
