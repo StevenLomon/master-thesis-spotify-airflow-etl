@@ -11,7 +11,7 @@ The actual master thesis is available to read (altho in Swedish haha) [here](/ma
 ## Description
 My master thesis project! It was worked on for just under a month were 20 days were put aside for the actual implementation of the project and the rest for writing the thesis and presenting it.  
 
-## Technologies used and Architecture
+## Technologies used and project architecture
 * Amazon EC2
 * PostgreSQL
 * Apache Airflow
