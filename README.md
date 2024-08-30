@@ -6,7 +6,7 @@ https://github.com/StevenLomon/master-thesis-spotify-ec2
 The Google Colab notebook that was used during the project:  
 https://colab.research.google.com/drive/1VNzOMly5cGOHLtu8g8HUzPFyuyhaikQ5  
 
-The actual master thesis ![here](Examensarbete Spotify ETL Steven Lomon Lennartsson Final version.pdf)
+The actual master thesis ["here"](/master-thesis.pdf)
 
 ## Description
 My master thesis project! Worked on for two weeks..
