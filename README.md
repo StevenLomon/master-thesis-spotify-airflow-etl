@@ -37,6 +37,10 @@ The iteration led to the creation of two distinct datasets; one more complex and
 !["The final ERD for the database in PostgreSQL"](/master-thesis-images/ERD.png "Final PostgreSQL ERD")
 The final ERD for the database in PostgreSQL.  
 
+When it was time to model a dimension model after the complex dataset it was decided that there are too few dimension tables which once again affected how the data was extracted and transformed.  
+
+!["Dimension model for the final complex data in PostgreSQL"](/master-thesis-images/dimension-model.png "Dimension model")
+Dimension model for the final complex data in PostgreSQL.  
 
 ### Loading the data into Snowflake
 !["The first 15 rows of data in the Snowflake table fact_tracks sorted by popularity with metadata to the right"](/master-thesis-images/snowflake-table.png "The first 15 rows of data in the Snowflake table")
