@@ -30,7 +30,7 @@ My reasoning for switching from Amazon Redshift to Snowflake mid-project was the
 ### Data modeling
 All data modeling was done in Lucidchart. Both the standard one and the dimension model one went through several iterations throughtout the duration of the project. In the beginning the thought was that three tables were to be used: Track, Artist and Playlist. A central question in the beginning was "Am I modeling Spotify or my database?" The answer is "my database" and with the solidified, the cardinalities became rather obvious.
 
-!["The very first iteration of the data modeling for the Spotify data. The two tables to the left ended up not being used at all"](/master-thesis-images/first-data-modeling-iteration.png ""The very first iteration of the data modeling for the Spotify data. The two tables to the left ended up not being used at all")
+!["The very first iteration of the data modeling for the Spotify data. The two tables to the left ended up not being used at all"](/master-thesis-images/first-data-modeling-iteration.png "The very first iteration of the data modeling for the Spotify data. The two tables to the left ended up not being used at all")
 
 
 ### Loading the data into Snowflake
