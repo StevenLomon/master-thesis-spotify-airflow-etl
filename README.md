@@ -56,7 +56,13 @@ All data transformation was written in Google Colab initally and executed with t
 
 A problem here however is that when a DataFrame is saved as csv, all data is converted to text meaning that all lists lose their properties and functionality. The solution to this was to use the Parquet file format. By using this file format, complex datatypes like lists keep their properties when being exported out of a Notebook.  
 
+The other big problem that arised during the project is that Parquet files turned out to not be compatible with Airflow. This became the second reason that a simpler dataset had to be built to be used with Airflow. Since a lot of time and energy had been spent on the more complex dataset, it wasn't thrown away and instead of got to lie stored in PostgreSQL completely separate from Airflow.  
 
+!["Advanced data transformations with pandas to aggregate data in the complex dataset. df_aggregated was later saved as a Parquet file"](/master-thesis-images/complex-data-transformation.png "Complex data transformation")
+Advanced data transformations with pandas to aggregate data in the complex dataset. df_aggregated was later saved as a Parquet file.  
+
+!["Function in spotify_etl.py that is used in spotify_dag.py to transform the simpler dataset"](/master-thesis-images/simple-data-transformation.png "Simple data transformation")
+Function in spotify_etl.py that is used in spotify_dag.py to transform the simpler dataset.  
 
 ### Loading the complex data into PostgreSQL
 
@@ -79,4 +85,4 @@ Wisdom for the future: Planning, planning, planning. But this gets easier and ea
 
 There are improvements that I haven't been able to handle. A fully automated pipelines that actually extracts data from the 50 biggest playlist with the more advanced transformations applied, finding a way around the API rate limit, is certainly one of the biggest improvements that can be made. Part of the feedback that I got when I presented the project is that AWS Glue could be used to simplify things considerably. Otherwise it's an end-to-end pipeline that can be scaled without too much hassle and where the individual parts can switch as needed.  
 
-When it comes to the data that is now stored in both Postgre and Snowflake; it can be used for data visualization and data analysis och when grown big enough it could be used for Machine Learning models. To take things one step further, the data could automatically be visualized in a dashboard or similar. This is something that could be done together with a Data Scientist and one of the many cool things I'm more than willing to do as a Data Engineer!
+When it comes to the data that is now stored in both Postgre and Snowflake; it can be used for data visualization and data analysis och when grown big enough it could be used for Machine Learning models. To take things one step further, the data could automatically be visualized in a dashboard or similar. This is something that could be done together with a Data Scientist and one of the many cool things I'm more than willing to do as a Data Engineer! :)
