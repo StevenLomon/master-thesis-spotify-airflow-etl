@@ -3,17 +3,32 @@
 This is a README that is created in retrospect. (It will mostly be my actual master thesis translated from Swedish to English haha). As much as possible will be kept as close to the initial state that was left in before the deadline of the master thesis. To honor this, this is the other reposity that was also used during the coding of the project:  
 https://github.com/StevenLomon/master-thesis-spotify-ec2  
 
-The actual master thesis is available in this repository!  
+The Google Colab notebook that was used during the project:  
+https://colab.research.google.com/drive/1VNzOMly5cGOHLtu8g8HUzPFyuyhaikQ5  
+
+The actual master thesis here: 
 
 ## Description
-My master thesis project!  
+My master thesis project! Worked on for two weeks..
 
 It follows the following architecture: (this one is updated from the one in the master thesis. Snowflake is not part of AWS haha)
 !["Project architecture diagram"](/project-architecture-diagram.png "Project architecture diagram")
 
+## Technologies used
+* Amazon EC2
+* PostgreSQL
+* Apache Airflow
+* Amazon S3
+* Snowflake
+
+Google Colab has been used over Jupyter Notebook purely out of personal preference.  
+
+My reasoning for switching from Amazon Redshift to Snowflake mid-project was the following: for this overall educational purpose, it was reasoned that it's easier and more intuitive to learn Snowflake. Redshift feels more niche and necessary to learn if one is to work at a company that uses Redshift and if so, training will be provided from the company for the specific areas and specifications at the company. Snowflake has extensive documentation and felt more beginner friendly. It also feels easier to learn Redshift is one has experience of working with another data warehouse, i.e. Snowflake, in the toolbelt.
 
 
 ## Project journal  
+
+###
 
 ### Loading the data into Snowflake
 !["The first 15 rows of data in the Snowflake table fact_tracks sorted by popularity with metadata to the right"](/master-thesis-images/snowflake-table.png "The first 15 rows of data in the Snowflake table fact_tracks sorted by popularity with metadata to the right")
