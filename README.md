@@ -62,15 +62,33 @@ The other big problem that arised during the project is that Parquet files turne
 Advanced data transformations with pandas to aggregate data in the complex dataset. df_aggregated was later saved as a Parquet file.  
 
 !["Function in spotify_etl.py that is used in spotify_dag.py to transform the simpler dataset"](/master-thesis-images/simple-data-transformation.png "Simple data transformation")
-Function in spotify_etl.py that is used in spotify_dag.py to transform the simpler dataset.  
+Function in spotify_etl.py that is used in spotify_dag.py to transform the simpler dataset.
+
+The simple data that has Snowflake as its final destination is loaded into a S3 bucket after being transformed.  
 
 ### Loading the complex data into PostgreSQL
-
-### Loading the simple data onto S3
+After the data transformation stage, the complex data that is to be loaded into PostgreSQL is stored in a Parquet file. This Parquet file is read into a DataFrame in a Python script and loaded into Postgre by using the library psycopg2:
+!["The last rows in db.py that loads the data into PostgreSQL using Python and psycopg2"](/master-thesis-images/loading-data-into-postgresql.png "Loading data into PostgreSQL")  
+The last rows in db.py that loads the data into PostgreSQL using Python and psycopg2.  
 
 ### Setting up the DAG in Airflow
+At this point the DAG had been set up and an Airflow instance had been initiated using Amazon EC2. (I'm noticing now that I don't really write about this at all in the master thesis..")
+
+The extracted raw data that later became the simple dataset was loaded into another separate S3 bucket using the BashOperator in the DAG:
+!["The final lines of code in spotify_dag.py where we define our DAG and the raw data is loaded onto an S3 bucket. The transformed data is loaded into an S3 bucket in the function transform_data a few lines above"](/master-thesis-images/spotify_etl_dag.png "The full DAG")  
+The final lines of code in spotify_dag.py where we define our DAG and the raw data is loaded onto an S3 bucket. The transformed data is loaded into an S3 bucket in the function transform_data a few lines above.  
+
+!["The full DAG that was created viewed in Airflow"](/master-thesis-images/full-dag.png "The full DAG viewed in Airflow")  
+The full DAG that was created viewed in Airflow.  
 
 ### Setting up the Snowpipe trigger for transfer from S3 to Snowflake
+When the transformed data is put in its S3 bucket, a trigger set up using Snowpipe automatically copies the data from the csv file into a table in Snowflake.
+
+!["The final lines of code in the SQL worksheet that was used to create and load data in a data warehouse. By default, data is loaded even if it leads to duplicated which merge_global50_tracks_task prevents"](/master-thesis-images/snowflake-sql-worksheet.png "The SQL worksheet")  
+The final lines of code in the SQL worksheet that was used to create and load data in a data warehouse. By default, data is loaded even if it leads to duplicated which merge_global50_tracks_task prevents.  
+
+The data that is loaded into Snowflake is actually simple enough that a database could do the job, but since 
+
 !["The first 15 rows of data in the Snowflake table fact_tracks sorted by popularity with metadata to the right"](/master-thesis-images/snowflake-table.png "The first 15 rows of data in the Snowflake table")
 The first 15 rows of data in the Snowflake table fact_tracks sorted by popularity with metadata to the right.  
 
