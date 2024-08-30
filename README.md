@@ -30,11 +30,14 @@ My reasoning for switching from Amazon Redshift to Snowflake mid-project was the
 ### Data modeling
 All data modeling was done in Lucidchart. Both the standard one and the dimension model one went through several iterations throughtout the duration of the project. In the beginning the thought was that three tables were to be used: Track, Artist and Playlist. A central question in the beginning was "Am I modeling Spotify or my database?" The answer is "my database" and with the solidified, the cardinalities became rather obvious.
 
-!["The very first iteration of the data modeling for the Spotify data. The two tables to the left ended up not being used at all"](/master-thesis-images/first-data-modeling-iteration.png "The very first iteration of the data modeling for the Spotify data. The two tables to the left ended up not being used at all")
+!["The very first iteration of the data modeling for the Spotify data. The two tables to the left ended up not being used at all"](/master-thesis-images/first-data-modeling-iteration.png "First data modeling iteration")
+The very first iteration of the data modeling for the Spotify data. The two tables to the left ended up not being used at all.  
+
+The iteration led to the creation of two distinct datasets; one more complex and a simpler one. How the data modeling for the complex dataset was translated in PostgreSQL below:
 
 
 ### Loading the data into Snowflake
-!["The first 15 rows of data in the Snowflake table fact_tracks sorted by popularity with metadata to the right"](/master-thesis-images/snowflake-table.png "The first 15 rows of data in the Snowflake table fact_tracks sorted by popularity with metadata to the right")
+!["The first 15 rows of data in the Snowflake table fact_tracks sorted by popularity with metadata to the right"](/master-thesis-images/snowflake-table.png "The first 15 rows of data in the Snowflake table")
 The first 15 rows of data in the Snowflake table fact_tracks sorted by popularity with metadata to the right.  
 
 ## End-of-project Reflections and Improvements
