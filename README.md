@@ -9,22 +9,21 @@ https://colab.research.google.com/drive/1VNzOMly5cGOHLtu8g8HUzPFyuyhaikQ5
 The actual master thesis is available to read (altho in Swedish haha) [here](/master-thesis.pdf)
 
 ## Description
-My master thesis project! Worked on for two weeks..
+My master thesis project! It was worked on for just under a month were 20 days were put aside for the actual implementation of the project and the rest for writing the thesis and presenting it.  
 
-It follows the following architecture: (this one is updated from the one in the master thesis. Snowflake is not part of AWS haha)
-!["Project architecture diagram"](/project-architecture-diagram.png "Project architecture diagram")
-
-## Technologies used
+## Technologies used and Architecture
 * Amazon EC2
 * PostgreSQL
 * Apache Airflow
 * Amazon S3
 * Snowflake
 
+The project follows the following architecture: (this one is updated from the one in the master thesis. Snowflake is not part of AWS haha)
+!["Project architecture diagram"](/project-architecture-diagram.png "Project architecture diagram")
+
 Google Colab has been used over Jupyter Notebook purely out of personal preference.  
 
 My reasoning for switching from Amazon Redshift to Snowflake mid-project was the following: for this overall educational purpose, it was reasoned that it's easier and more intuitive to learn Snowflake. Redshift feels more niche and necessary to learn if one is to work at a company that uses Redshift and if so, training will be provided from the company for the specific areas and specifications at the company. Snowflake has extensive documentation and felt more beginner friendly. It also feels easier to learn Redshift is one has experience of working with another data warehouse, i.e. Snowflake, in the toolbelt.
-
 
 ## Project journal  
 
