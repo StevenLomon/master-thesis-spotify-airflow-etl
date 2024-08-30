@@ -42,7 +42,29 @@ When it was time to model a dimension model after the complex dataset it was dec
 !["Dimension model for the final complex data in PostgreSQL"](/master-thesis-images/dimension-model.png "Dimension model")
 Dimension model for the final complex data in PostgreSQL.  
 
-### Loading the data into Snowflake
+### Data extraction
+All data is extracted from the Spotify API. Initially this included creating an app in their dashboard and going through an authentication process.  
+
+In the beginning of the project the thought was clear to extract all songs from the 50 biggest playlists and creating a dataset of ca 5000 songs. Further columns with data would also be extracted from Spotify's audio features API endpoint. This idea was iterated upon throughout the project. In the beginning, only 'energy level' and 'danceability' was extracted but eventually the data was loaded into PostgreSQL used all data available from audio feautres to give more data to the dimension table that later was created.  
+
+The very biggest problem that arised at this stage of the project was audio feautures itself and its rate limit which was more prominent than other endpoints. This was worked around by amongs other things save intermediate data in JSON-files to built the dataset iteratively and continue building the pandas DataFrame from a specific point. However, this was only executable in Google Colab and not in Airflow since they are run in two different environments. With this the need for the simpler dataset that eventually was used in Airflow was born.  
+
+So except for a complex dataset with songs from the 50 biggest playlists in Sweden was created and also a simpler dataset where only the 50 songs from Spotify's Global Top 50 was extracted. The second big problem that arised during the project which led to the need of a simpler dataset occured during data transformation:
+
+### Data transformation in Google Colab
+All data transformation was written in Google Colab initally and executed with the help of the Python library pandas. With two distinct datasets came two distinct chains of data transformations. Early on in the project it was decided to make use of the fact that PostgreSQL can manage lists as a datatype by having two columns be of type list: 'playlist sources' and 'genres'. Thus, these are lists of strings.  
+
+A problem here however is that when a DataFrame is saved as csv, all data is converted to text meaning that all lists lose their properties and functionality. The solution to this was to use the Parquet file format. By using this file format, complex datatypes like lists keep their properties when being exported out of a Notebook.  
+
+
+
+### Loading the complex data into PostgreSQL
+
+### Loading the simple data onto S3
+
+### Setting up the DAG in Airflow
+
+### Setting up the Snowpipe trigger for transfer from S3 to Snowflake
 !["The first 15 rows of data in the Snowflake table fact_tracks sorted by popularity with metadata to the right"](/master-thesis-images/snowflake-table.png "The first 15 rows of data in the Snowflake table")
 The first 15 rows of data in the Snowflake table fact_tracks sorted by popularity with metadata to the right.  
 
