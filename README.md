@@ -11,7 +11,7 @@ https://colab.research.google.com/drive/1VNzOMly5cGOHLtu8g8HUzPFyuyhaikQ5
 The actual master thesis is available to read (altho in Swedish haha) [here](/master-thesis.pdf)
 
 ## Description
-My master thesis project for my studies at Teknikhögskolan as Python Developer with Specialization in AI! A full ETL pipeline that takes data end-to-end from the Spotify API to a Snowflake Data Warehouse. It was worked on for just under a month where 20 days were put aside for the actual implementation of the project and the rest for writing the thesis and presenting it. 
+My master thesis project for my studies at Teknikhögskolan as Python Developer with Specialization in AI! A full ETL pipeline that takes data all the way from the Spotify API to a Snowflake Data Warehouse. It was worked on for just under a month where 20 days were put aside for the actual implementation of the project and the rest for writing the thesis and presenting it.  
 
 ## Technologies used and project architecture
 * Amazon EC2
