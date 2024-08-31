@@ -130,4 +130,4 @@ There are improvements that I haven't been able to handle. A fully automated pip
 
 When it comes to the data that is now stored in both Postgre and Snowflake; it can be used for data visualization and data analysis och when grown big enough it could be used for Machine Learning models. To take things one step further, the data could automatically be visualized in a dashboard or similar. This is something that could be done together with a Data Scientist and one of the many cool things I'm more than willing to do as a Data Engineer! :)
 
-(As for my reflections now as Steven writing a README 3 months after the thesis has been handed in I've gotten my graduation; to past Steven, present Steven and future Data Engineer Steven: document more haha)
+(As for my reflections now as Steven writing a README 3 months after the thesis has been handed in I've gotten my graduation; to past Steven, present Steven and future Data Engineer and AWS Solutions Architect Steven: document more haha)
