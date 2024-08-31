@@ -1,6 +1,8 @@
 # Master Thesis: Spotify ETL using Airflow and Snowflake
 
-This is a README that is created in retrospect. (It will mostly be my actual master thesis translated from Swedish to English haha). As much as possible will be kept as close to the initial state that was left in before the deadline of the master thesis. To honor this, this is the other reposity that was also used during the coding of the project:  
+This is a README that has been created in retrospect. (It will mostly be my actual master thesis translated from Swedish to English haha. I wish I had documented the specific challenges I faced in regards to EC2, Airflow, Snowflake but also overall throughout the entire project and how I overcame them more as I was overcoming them. It's 3 months ago now I did this and I can't really recall. Document!! It helps everyone included. This is a reminder to myself, my future and self and anyone reading this haha! More on this down [here](####notes-on-bad-documentation))
+
+As much as possible it will be kept as close to the initial state that was left in before the deadline of the master thesis. To honor this, this is the other reposity that was also used during the project when coding for the virtual machine environment:  
 https://github.com/StevenLomon/master-thesis-spotify-ec2  
 
 The Google Colab notebook that was used during the project:  
@@ -9,7 +11,7 @@ https://colab.research.google.com/drive/1VNzOMly5cGOHLtu8g8HUzPFyuyhaikQ5
 The actual master thesis is available to read (altho in Swedish haha) [here](/master-thesis.pdf)
 
 ## Description
-My master thesis project! It was worked on for just under a month were 20 days were put aside for the actual implementation of the project and the rest for writing the thesis and presenting it.  
+My master thesis project for the program Python Developer with Specialization in AI at Teknikhögskolan, Västerås, Sweden. It was worked on for just under a month were 20 days were put aside for the actual implementation of the project and the rest for writing the thesis and presenting it.  
 
 ## Technologies used and project architecture
 * Amazon EC2
@@ -71,8 +73,26 @@ After the data transformation stage, the complex data that is to be loaded into 
 !["The last rows in db.py that loads the data into PostgreSQL using Python and psycopg2"](/master-thesis-images/loading-data-into-postgresql.png "Loading data into PostgreSQL")  
 The last rows in db.py that loads the data into PostgreSQL using Python and psycopg2.  
 
-### Setting up the DAG in Airflow
-At this point the DAG had been set up and an Airflow instance had been initiated using Amazon EC2. (I'm noticing now that I don't really write about this at all in the master thesis..")
+### Setting up the EC2 instance and DAG in Airflow
+At this point the DAG had been set up and an Airflow instance had been initiated using Amazon EC2. (I'm noticing now that I don't really write about this at all in the master thesis haha..")
+
+This included creating an EC2 instance in the AWS Management Console with a key pair assigned (important), waiting for it to be in a running state, and grabbing its Public IPv4 address. This IP address will be used to set a remote connection to the EC2 instance in VSCode to enable coding in the virtual machine environment with the VSCode UI. This is not mandatory since coding can be executed completely within the terminal using a text editor like Vim (my favorite haha) or Nano but going with the Remote-SSH option and coding for the EC2 instance in VSCode is more beginner friendly
+
+To set up the remote SSH connection, the blue button in the very lower left corner in VSCode is pressed followed by "Connect to Host...". After clicking "Configure SSH Hosts..." and the corresponding config file to the current user, the config file is edited. The public IPv4 address and the location of the key pair file is added in the following format:
+```
+# Read more about SSH config files: https://linux.die.net/man/5/ssh_config
+Host spotify-airflow-master-thesis
+    HostName 16.170.110.224
+    User ubuntu
+    IdentityFile C:\Users\steve\Documents\airflow_ec2_key.pem
+```
+
+When coding in the virtual machine environment, the second GitHub repo was set up. Once again, it can be found here:  
+https://github.com/StevenLomon/master-thesis-spotify-ec2  
+
+The DAG code was written in Python following the convention found in the official Apache Airflow documentation:  
+https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html  
+The DAG was initiated mostly with the default arguments and three tasks were created. These were executed in a simple 1, 2, 3 order.
 
 The extracted raw data that later became the simple dataset was loaded into another separate S3 bucket using the BashOperator in the DAG:
 !["The final lines of code in spotify_dag.py where we define our DAG and the raw data is loaded onto an S3 bucket. The transformed data is loaded into an S3 bucket in the function transform_data a few lines above"](/master-thesis-images/spotify_etl_dag.png "The full DAG")  
@@ -80,6 +100,9 @@ The final lines of code in spotify_dag.py where we define our DAG and the raw da
 
 !["The full DAG that was created viewed in Airflow"](/master-thesis-images/full-dag.png "The full DAG viewed in Airflow")  
 The full DAG that was created viewed in Airflow.  
+
+#### Notes on bad documentation
+(Once again; I wish I had documented the specific challenges I faced in regards to EC2, Airflow and Snowflake as I faced them! The only thing I wrote in my project journal on the 24th of May was "Wrote all code for the Spotify DAG". That's terrible and helps no one!! 😅 On the 25th I wrote: "Today I fixed this warning in the Airflow console: 'The scheduler does not appear to be running. Last heartbeat was received May 23, 2024 12:02 PM. The DAGs list may not update, and new tasks will not be scheduled.'". But that was it! Not *how* I actually fixed it and what to think about in the future! What???)
 
 ### Setting up the Snowpipe trigger for transfer from S3 to Snowflake
 When the transformed data is put in its S3 bucket, a trigger set up using Snowpipe automatically copies the data from the csv file into a table in Snowflake.
