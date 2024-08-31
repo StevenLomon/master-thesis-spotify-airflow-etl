@@ -1,6 +1,6 @@
 # Master Thesis: Spotify ETL using Airflow and Snowflake
 
-This is a README that has been created in retrospect. (It will mostly be my actual master thesis translated from Swedish to English haha. I wish I had documented the specific challenges I faced in regards to EC2, Airflow, Snowflake but also overall throughout the entire project and how I overcame them more as I was overcoming them. It's 3 months ago now I did this and I can't really recall. Document!! It helps everyone included. This is a reminder to myself, my future and self and anyone reading this haha! More on this down [here](####notes-on-bad-documentation))
+This is a README that has been created in retrospect. (It will mostly be my actual master thesis translated from Swedish to English haha. I wish I had documented the specific challenges I faced in regards to EC2, Airflow, Snowflake but also overall throughout the entire project and how I overcame them more as I was overcoming them. It's 3 months ago now I did this and I can't really recall. Document!! It helps everyone included. This is a reminder to myself, my future and self and anyone reading this haha! More on this down [here](#notes-on-bad-documentation))
 
 As much as possible it will be kept as close to the initial state that was left in before the deadline of the master thesis. To honor this, this is the other reposity that was also used during the project when coding for the virtual machine environment:  
 https://github.com/StevenLomon/master-thesis-spotify-ec2  
